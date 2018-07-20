@@ -300,6 +300,10 @@ Subscription.prototype.subscribe = function() {
                 }
             });
         } else if (_.isFunction(_this.callback)) {
+            // work around for fix checkConfirmation callback error
+            if(_this.callback.name.includes("checkConfirmation")){
+              return;
+            }
             _this.callback(err, null, _this);
             _this.emit('error', err);
         } else {
